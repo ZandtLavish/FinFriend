@@ -73,3 +73,18 @@ CHROMA_TOKEN="1234abcd..."
 ```
 
 **NOTE** - You can also edit the variables under the `app/config.py:Settings` class variables. However, the project assumes a `.env` file will be present when building the container
+
+---
+
+# Getting Started
+
+1. Build and launch the Docker project
+```bash
+docker compose build
+docker compose up
+```
+
+2. Visit the local Chainlit site using your favorite browser:
+```bash
+http://0.0.0.0:8000
+```
