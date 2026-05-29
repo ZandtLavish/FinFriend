@@ -1,0 +1,12 @@
+ollama
+langchain
+langchain-ollama
+langchain-chroma
+langchain-community
+langchain-text-splitters
+langgraph
+chromadb
+chainlit
+pydantic
+pydantic-settings
+yfinance

@@ -9,14 +9,22 @@
 
 <br>
 
-With access to numerous financial tools and services, ***FinFriend*** is designed to efficiently extract the relevant, ever-changing context of the world and apply it to your personal financial goals. Query your LLM without thinking twice about the personal data you're feeding it.
+With access to numerous tools and services, ***FinFriend*** is designed to efficiently extract the relevant, ever-changing context of the financial world and apply it to your personal financial goals. Query your agent without thinking twice about the sensitive information you're providing it.
+
+---
+
+# Current Integrations
+
+- **FRED**
+- **Yahoo Finance**
+- **SEC Filings**
 
 ---
 
 # Setup
 
 #### 1. Start Ollama
-The Project is designed to run Ollama on the host machine (faster than inside a container). Start the service before running the docker project:
+***FinFriend*** is designed to run Ollama on the host machine (this is notably faster than inside a container). Start the service before running the docker project:
 
 **MacOS**
 ```bash
@@ -30,8 +38,9 @@ systemctl status ollama
 ```
 
 #### 2. Download Model & Embeddings
-Make sure your model supports **"tools"** (see [ollama.com/search](https://ollama.com/search))
-***NOTE** – The quality and accuracy of your chat interaction greatly depends on the quality of your model. I found ***qwen3.6*** effective with the tool interactions.*
+Considerations when choosing a model (see [ollama.com/search](https://ollama.com/search))
+- Make sure your model supports **"tools"**
+- The quality and accuracy of your chat interaction greatly depends on the quality of your model. I find `qwen3.6` effective with the tool interactions.
 
 ```bash
 ollama pull nomic-embed-text
@@ -44,3 +53,23 @@ cd <project>
 docker compose build
 docker compose up
 ```
+
+#### 4. Set Environment Variables
+You need to set a few key environment variables to get everything connected. Create a `.env` file in the same directory as the `Dockerfile` and note the following variables you'll set:
+```
+LLM_MODEL
+CHROMA_TOKEN
+FRED_KEY
+SEC_EMAIL # Required by SEC
+```
+
+To Create your Chroma secret run the following in your terminal to generate a random secret for your **Chroma Host** (keep it secret, keep it safe):
+```bash
+openssl rand -hex 32
+```
+...and set it as the `CHROMA_TOKEN` environment variable (in your `.env` file)
+```bash
+CHROMA_TOKEN="1234abcd..."
+```
+
+**NOTE** - You can also edit the variables under the `app/config.py:Settings` class variables. However, the project assumes a `.env` file will be present when building the container
